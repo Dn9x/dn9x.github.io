@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Dn9x.github.io by Dn9x</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Dn9x.github.io</h1>
+        <p>dn9x-blog</p>
+
+
+        <p class="view"><a href="https://github.com/Dn9x">View My GitHub Profile</a></p>
+
+      </header>
+      <section>
+
+
+<xmp theme="united" style="display:none;">
+# Markdown text goes in here
+
+## Chapter 1
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+et dolore magna aliqua. 
+
+## Chapter 2
+
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+
+```
+(function(window){
+
+  var fDrop = (function() {
+       // 构建jQuery对象
+       var fDrop = function(id) {
+           return new fDrop.fn.init(id);
+       }
+   
+       // jQuery对象原型
+       fDrop.fn = fDrop.prototype = {
+           constructor: fDrop,
+           init: function(id) {
+              var oDropBox = document.getElementById(id);
+
+              oDropBox.addEventListener('dragover', function(e) {
+                  e.stopPropagation();
+                  e.preventDefault();
+              }, false);
+
+              oDropBox.addEventListener('drop', function(e){
+                e.stopPropagation();
+  　　                e.preventDefault();
+                  
+                  var fileList  = e.dataTransfer.files,　　//获取拖拽文件
+                      fileType = fileList[0].type,
+  　　　　                 oImg = document.createElement('img'),
+  　　　　                 reader = new FileReader();
+                  
+                  if (fileType.indexOf('image') == -1) {
+                      alert('请拖拽图片~');
+                      return;
+                  }
+
+                  reader.onload = function(e) {
+                      oImg.src = this.result;
+                      oDropBox.innerHTML = '';
+                      oDropBox.appendChild(oImg);
+                  }
+                  reader.readAsDataURL(fileList[0])
+              }, false);
+           }
+       };
+   
+       // Give the init function the jQuery prototype for later instantiation
+       fDrop.fn.init.prototype = fDrop.fn;
+
+       return fDrop;
+   
+    })();
+
+    window.fDrop = window.$$ = fDrop;
+
+})(window);
+```
+</xmp>
+
+<script src="http://strapdownjs.com/v/0.2/strapdown.js"></script>
+
+
+
+      
+      </section>
+      <footer>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
