@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<title>CSS3：属性选择器</title>
+
+<xmp theme="united" style="display:none;">
+一直都在使用css,也一直都在使用css3,但是说懂我也一知半解，不懂我又了解一点，所以今天开始我就记录下我的CSS3的学习记录，我的系列文章很大的程度都是我自己在看，所以很多地方我都写的不是很详细，就像记笔记一样记个大概的纲要，温习的时候提供思路就行了。  
+
+这篇记录主要是记录CSS3中的属性选择器，属性选择器顾名思义就是根据属性选择。在html中很多标签都有属性，一堆的属性，有些属性是不同标签共有的，有些属性是个别标签私有的，但是通过属性选择器我们可以很方便甚至很精准的定位到某个元素。在css3中有四个属性选择器。如：  
+```
+[attr = value]
+[attr *= value]
+[attr ^= value]
+[attr $= value]
+```  
+在css3中有着这四个属性选择器，下面就记录下它们四个的用法。  
+
+  
+-------------------------
+###[attr = value]  
+此选择器会跟匹配属性为`attr`的名称为`value`的元素。这里匹配到的结果不一定只有一个，如果属性是id就只能匹配到一个，如果属性是class那就不知道匹配多少个了。如下代码：
+```
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+    <title>demo</title>
+    <style>
+    	div{
+    		width: 60px;
+    		height: 60px;
+    		line-height: 60px;
+    		margin: 10px;
+    		border: 1px solid #ccc;
+    		float: left;
+    	}
+    	div[id = divdsxd]{
+    		background-color: green;
+    	}
+    </style>
+</head>
+	<body>
+		<div id="divdsdd">第一个</div>
+		<div id="dxvdsed">第2个</div>
+		<div id="dhvdsxd">第3个</div>
+		<div id="divdsgd">第4个</div>
+		<div id="drvdsxd">第5个</div>
+		<div id="dbvdshd">第6个</div>
+		<div id="dpvdswd">第7个</div>
+		<div id="divdsxd">第8个</div>
+	</body>
+</html>
+```  
+根据id匹配的，所以就会匹配id为divdsxd的元素，匹配到之后就把背景颜色改为绿色。如：  
+![](../../image/2014-03-24css3-1.JPG)  
+
+
+-------------------------
+###[attr *= value]
+此属性选择器会匹配只要属性名称中包含value就匹配，比如如果很多属性id的名称都包含ds,那么不管ds是在名称前还是名称后都会匹配，只要包含就匹配。修改上面的css如下：  
+```
+div{
+	width: 60px;
+	height: 60px;
+	line-height: 60px;
+	margin: 10px;
+	border: 1px solid #ccc;
+	float: left;
+}
+div[id *= ds]{
+	background-color: red;
+}
+div[id = divdsxd]{
+	background-color: green;
+}
+```  
+结果如下：  
+![](../../image/2014-03-24css3-2.JPG)  
+最后一个还是绿色是因为`div[id = divdsxd]`在`div[id *= ds]`后面，css是从上往下解析的。  
+
+
+-------------------------
+###[attr ^= value]
+此选择器会匹配以value开头的attr属性，上面的`*=`理解之后这个就很好理解了，直接看效果：  
+```
+div[id *= ds]{
+	background-color: red;
+}
+div[id ^= div]{
+	background-color: blue;
+}
+div[id = divdsxd]{
+	background-color: green;
+}
+```  
+效果如下：  
+![](../../image/2014-03-24css3-3.JPG)  
+
+
+
+-------------------------
+###[attr $= value]
+此选择器就更好理解，匹配以value结尾的属性。修改css如下：
+```
+div[id *= ds]{
+	background-color: red;
+}
+div[id ^= div]{
+	background-color: blue;
+}
+div[id $= xd]{
+	background-color: yellow;
+}
+div[id = divdsxd]{
+	background-color: green;
+}
+```  
+效果如下：  
+![](../../image/2014-03-24css3-4.JPG)  
+
+
+这里四个属性选择器的顺序这样排列可以看出效果，如果倒着排列那么效果就完全不同了，比如这样写：  
+```
+div[id = divdsxd]{
+	background-color: green;
+}
+div[id $= xd]{
+	background-color: yellow;
+}
+div[id ^= div]{
+	background-color: blue;
+}
+div[id *= ds]{
+	background-color: red;
+}
+```  
+css是从上往下解析的，所以编写css的时候一定要注意下面的样式覆盖了上面的样式。
+
+</xmp>
+
+<script src="../../javascripts/0.2/strapdown.js"></script>
+</html>
