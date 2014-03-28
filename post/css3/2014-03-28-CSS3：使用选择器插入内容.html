@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<link rel="icon" href="../../favicon.png" type="image/ico" >
+<title>CSS3：使用选择器插入内容</title>
+
+<xmp theme="united" style="display:none;">
+在前面的[CSS3：伪元素选择器](2014-03-28-CSS3：伪元素选择器.html)这一节里面有提到过使用`before`或者`after`选择器配合`content`属性在页面中插入内容。这一节主要记录这两个搭配使用可以做到的效果。
+
+--------------------------
+###插入文字
+前面也提到了插入内容，如果要在页面中插入文字内容还是很方便的，代码如下：  
+```
+css
+li:before{
+    content: '插入--';
+}
+
+html
+<ul>
+    <li id="op1">例子1</li>
+    <li id="op2">例子2</li>
+    <li id="op3">例子3</li>
+    <li id="op4">例子4</li>
+    <li id="op5">例子5</li>
+    <li id="op6">例子6</li>
+</ul>
+```  
+使用还是很方便的，效果如下：  
+![](../../image/2014-03-28css3-13.jpg)  
+
+
+----------------------------
+###插入图片
+插入图片的时候就像设置背景图片一样设置就行了，代码如下：
+```
+li:after{
+    content: url(images/new.gif);
+}
+```  
+效果如下：  
+![](../../image/2014-03-28css3-14.jpg)   
+效果还挺好的，特别适合发布新文章的时候在标题后面添加一个这样的图片。
+
+----------------------------
+###none属性
+上面插入图片的效果不错，但是如果我们想第三个没有图片，其他的都想要怎么办呢？不用担心，有`none`属性，修改css如下：  
+```
+li:after{
+    content: url(images/new.gif);
+}
+li#op3:after{
+    content: none;
+}
+```  
+这样就可以做到想要的效果了，如：  
+![](../../image/2014-03-28css3-15.jpg)    
+
+-----------------------
+###获取使用元素属性值
+content属性还可以获取到当前使用元素的属性值，比如修改css如下：  
+```
+li:before{
+    content: attr(id);
+}
+```  
+效果如下：  
+![](../../image/2014-03-28css3-16.jpg)    
+这个在需要的时候还是很方便的。
+
+-----------------------
+###通过counter计数器插入编号
+content还可以给列表项目插入编号，一般我们使用li的时候会带编号，但是当我们使用其他元素的时候我们就可以通过此属性来实现编号功能，如下：  
+```
+css
+h2:before{
+    content: counter(count)'.';   //这里连接字符的时候不能使用'+'而是直接拼接就行了, count是计数器名称
+}
+h2{
+    counter-increment: count;	  //这里的counter-increment是表示声明计数器名称为：count，统计h2的次数
+}
+
+html
+<h2>标题1</h2>
+<h2>标题2</h2>
+<h2>标题3</h2>
+<h2>标题4</h2>
+<h2>标题5</h2>
+<h2>标题6</h2>
+```  
+效果如下：  
+![](../../image/2014-03-28css3-17.jpg)  
+使用此方式不但可以添加编号，还可以嵌套添加编号，这里就不记录了，  
+这里还可以指定编号的种类，如：  
+```
+h2:before{
+    content: counter(count, lower-roman)'.';   //这里连接字符的时候不能使用'+'而是直接拼接就行了, count是计数器名称
+}
+h2{
+    counter-increment: count;	  //这里的counter-increment是表示声明计数器名称为：count，统计h2的次数
+}
+```  
+效果如下：  
+![](../../image/2014-03-28css3-18.jpg)  
+这里的各种编号类型有下面这些种类：  
+```
+disc                : 实心圆
+circle              : 空心圆
+square              : 实心方块
+decimal             : 阿拉伯数字
+lower-roman         : 小写罗马数字
+upper-roman         : 大写罗马数字
+lower-alpha         : 小写英文字母
+upper-alpha         : 大写英文字母
+none                : 不使用项目符号
+armenian            : 传统的亚美尼亚数字
+cjk-ideographic     : 浅白的表意数字
+georgian            : 传统的乔治数字
+lower-greek         : 基本的希腊小写字母
+hebrew              : 传统的希伯莱数字
+hiragana            : 日文平假名字符
+hiragana-iroha      : 日文平假名序号
+katakana            : 日文片假名字符
+katakana-iroha      : 日文片假名序号
+lower-latin         : 小写拉丁字母
+upper-latin         : 大写拉丁字母
+```  
+
+----------------------
+###quotes属性使用
+比如现在有个需求，在页面的h2, p, li等标签的内容前面和后面添加一个括号，我们可以这样做：  
+```
+h2:before{
+    content: '(';
+}
+h2:after{
+    content: ')';
+}
+
+li:before{
+    content: '(';
+}
+li:after{
+    content: ')';
+}
+
+p:before{
+    content: '(';
+}
+p:after{
+    content: ')';
+}
+```  
+如果现在要把括号改成大括号'{'那么我们要改6次，这样岂不是很麻烦。使用quotes就可以很方便的解决这个问题。修改代码如下：  
+```
+css
+h2:before{
+    content: open-quote;
+}
+h2:after{
+    content: close-quote;
+}
+li:before{
+    content: open-quote;
+}
+li:after{
+    content: close-quote;
+}
+p:before{
+    content: open-quote;
+}
+p:after{
+    content: close-quote;
+}
+h2, li, p{
+    quotes: '(' ')';
+}
+
+html
+<h2>标题</h2>
+<p>p标签</p>
+<ul>
+  <li>li标签</li>
+  <li>li标签</li>
+</ul>
+```  
+这样就方便很多了，每次修改一次就可以了。这里的`open-quote`表示开始也就是前面的部分，`close-quote`表示后面闭合的部分，在要使用的标签上面要声明，声明使用`quotes`，开始和结束的部分用空格分开。
+
+
+
+</xmp>
+
+<script src="../../javascripts/0.2/strapdown.js"></script>
+</html>
