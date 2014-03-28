@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<link rel="icon" href="../../favicon.png" type="image/ico" >
+<title>CSS3：状态伪类选择器</title>
+
+<xmp theme="united" style="display:none;">
+在CSS3中有另外一类选择器，他们就是UI元素状态伪类选择器，这类选择器很好理解就是根据元素的状态才会使用样式，初始化下没有作用，达到某种状态就会使用。  
+在CSS3中总共有11中状态伪类选择器，他们是：  
+```
+:hover
+:active
+:focus
+:enabled
+:disabled
+:read-only
+:read-write
+:checked
+:default
+:indeterminate
+::selection
+```  
+
+-------------------------------
+###:hover选择器
+:hover选择器是当鼠标移到元素上面的时候会起作用。
+
+---------------------------
+###:active选择器
+:active选择器是当鼠标在元素上面按下并且没有松开的时候起作用。
+
+---------------------------
+###:focus选择器
+:focus选择器是当光标焦点在此元素内的时候起作用，一般作用于form里面的元素比较多。这里要多说点，如果focus选择器和active选择器同时使用的时候，css代码中:active要在:focus的后面，如下：  
+```
+input[type='text']:focus{
+    background-color: red;
+}
+input[type='text']:active{
+    background-color: green;
+}
+```  
+如果反过来是没有效果的，不是没有效果是盖住了看不到而已。
+
+-----------------------
+###:enabled选择器
+:enabled选择器是当元素处于可用状态的时候起作用，多用于form里面的元素。
+
+-----------------------
+###:disabled选择器
+:disabled选择器是当元素处于不可用状态的时候起作用，多用于form里面的元素。
+
+-----------------------
+###:read-only选择器和:read-write选择器
+这两个选择器的作用是当元素处于只读状态和非只读状态的时候起作用。
+
+-----------------------
+###:checked选择器
+:checked选择器可以用于处理radio和checkbox处于选中状态时候起作用。
+
+-----------------------
+###:default选择器
+:default选择器是打开页面的时候默认选中的元素起作用。
+
+-----------------------
+###:indeterminate选择器
+:indeterminate选择器是打开页面的时候没有一个选中的时候整组元素起作用。
+
+----------------------
+###::selection选择器
+::selection选择器是我最喜欢的选择器之一，当元素处于选中的时候指定样式。比如如下代码：  
+```
+css
+p::selection{
+    color: red;
+    background-color: #000;
+}
+
+html
+<p>
+###::selection选择器
+::selection选择器是我最喜欢的选择器之一，当元素处于选中的时候指定样式。比如如下代码：
+</p>  
+```  
+运行之后效果如下：  
+![](../../image/2014-03-28css3-12.jpg)  
+当选择文字的时候改变字体颜色，改变背景颜色。这个还是很常用的。
+
+
+-----------------------------------
+到这里我想记录的有关CSS3的选择器也就记录完了，其实还有其他的选择器只是没有记录而已。
+</xmp>
+
+<script src="../../javascripts/0.2/strapdown.js"></script>
+</html>
