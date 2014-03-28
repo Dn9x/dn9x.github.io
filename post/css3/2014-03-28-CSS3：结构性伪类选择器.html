@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<link rel="icon" href="../../favicon.png" type="image/ico" >
+<title>CSS3：基本选择器</title>
+
+<xmp theme="united" style="display:none;">
+结构性伪类选择器的特点就是可以根据dom树中的结构来匹配元素样式。他会根据遍历dom树，匹配的就添加相关的样式。这几节会记录几个比较常用的，其他的不会记录，
+
+-------------------------------
+###not选择器
+not选择器可以针对某个元素下的某些指定的子元素不使用样式。比如下面这个例子：  
+```
+css
+body *:not(h1){
+    background-color: blue;
+}
+div{
+	width: 60px;
+	height: 60px;
+	line-height: 60px;
+	margin: 10px;
+	border: 1px solid #ccc;
+}
+
+html
+<body>
+	<h1>sdfsdf</h1>
+    <p>
+        按时发生的发生的发生的发生的发生等发生大法师打发斯蒂芬阿斯顿发生对发生等发生asdfasdf阿斯达司法司法斯蒂芬爱上等发生大法师打发斯蒂芬阿斯顿发生敌法我敌法苏定方阿
+        斯顿发生对发生等发生敌法山等发生大发山等发生大发山等发生大发山等发生大发山等发生大发稍等阿斯顿发送到发山等发生大发山等发生大发山等发生大发上等发生大法师打发斯蒂芬请问特后工程所需被污染同意王企鹅特勤特温柔他第三方公司法国环卫工是大法官ertweryukyuipuio 
+    </p>
+    <div>sdfsdf</div>
+</body>
+```  
+这里的`body`和`*`是后代选择器，如果单纯这样`body *{属性：值}`这就是说对body里面的所有元素指定样式，现在添加`:not()`之后就说明`h1`标签不指定样式。效果如下：  
+![](../../image/2014-03-28css3-5.jpg)  
+
+
+--------------------------
+###empty选择器
+empty选择器用来匹配元素内容为空的时候使用。可以直接这样` :empty{属性：值}`使用。比如说在表格中某个单元格没有数据的时候就可以使用empty选择器，当没有数据的时候给他一个浅浅的背景色是很方便的。
+
+
+-----------------------------
+###target选择器
+target选择器配合id做链接的时候很有用，当某个元素的id被当做链接之后，并且点击了连到这个id的链接之后，此元素就会匹配样式。下面有个例子：  
+```
+css
+:target{
+    background-color: yellow;
+}
+
+html
+<a href="#a1">链接1</a>
+<a href="#a2">链接2</a>
+<a href="#a3">链接3</a>
+
+<div id="a1">
+    <p>target选择器配合id做链接的时候很有用，当某个元素的id被当做链接之后，并且点击了连到这个id的链接之后，此元素就会匹配样式。下面有个例子： </p> 
+</div>
+<div id="a2">
+    <p>target选择器配合id做链接的时候很有用，当某个元素的id被当做链接之后，并且点击了连到这个id的链接之后，此元素就会匹配样式。下面有个例子：  </p>
+</div>
+<div id="a3">
+    <p>target选择器配合id做链接的时候很有用，当某个元素的id被当做链接之后，并且点击了连到这个id的链接之后，此元素就会匹配样式。下面有个例子：  </p>
+</div>
+```  
+当点击链接1的时候，id为a1的div会改变背景色。效果如下：    
+![](../../image/2014-03-28css3-6.jpg)  
+
+
+-----------------------
+###nth-child和nth-last-child选择器
+这两个选择器作用一个从头一个从尾开始。他们可以匹配指定位置的元素，甚至可以处理偶数位置和奇数位置的样式，比如匹配指定位置的样式：  
+```
+css
+li:nth-child(2){
+    background-color: yellow;
+}
+li:nth-last-child(2){
+    background-color: blue;
+}
+
+html
+<ul>
+    <li>列表1</li>
+    <li>列表2</li>
+    <li>列表3</li>
+    <li>列表4</li>
+    <li>列表5</li>
+    <li>列表6</li>
+    <li>列表7</li>
+</ul>
+```  
+效果如下：    
+![](../../image/2014-03-28css3-7.jpg)   
+修改上面的css如下，实现偶数变色：  
+```
+li:nth-child(odd){
+    background-color: yellow;
+}
+li:nth-child(even){
+    background-color: blue;
+}
+```   
+这样就可以实现偶数行和奇数行的背景色不一致，处理table的时候很方便。效果如下:   
+![](../../image/2014-03-28css3-8.jpg)  
+
+
+----------------------------------
+###nth-of-type和nth-last-of-type选择器
+这两种选择器作用也是一头一尾，他们的作用和上面的相似，只不过他们可以根据指定的元素类型进行匹配。我们先看个上面选择器处理不了的问题。如：
+```
+css
+h2:nth-child(odd){
+    background-color: yellow;
+}
+h2:nth-child(even){
+    background-color: blue;
+}
+
+html
+<div>
+	<h2>标题1</h2>
+	<p>内容1.。。。。。。。。。</p>
+	<h2>标题2</h2>
+	<p>内容2.。。。。。。。。。</p>
+	<h2>标题3</h2>
+	<p>内容3.。。。。。。。。。</p>
+	<h2>标题4</h2>
+	<p>内容4.。。。。。。。。。</p>
+	<h2>标题5</h2>
+	<p>内容5.。。。。。。。。。</p>
+	<h2>标题6</h2>
+	<p>内容6.。。。。。。。。。</p>
+	<h2>标题7</h2>
+	<p>内容7.。。。。。。。。。</p>
+</div>
+```  
+理论上的效果应该是标题一行黄色一行蓝色，可是实际的效果是这样的，如：  
+![](../../image/2014-03-28css3-9.jpg)  
+这是因为在计数的时候div里面的每个元素都会被计入，h2永远处于奇数的位置，所以就只有黄色，那么要解决这个问题就可以使用nth-of-type选择器。他会之匹配指定的元素类型。修改上面css代码如下：  
+```
+h2:nth-of-type(odd){
+    background-color: yellow;
+}
+h2:nth-of-type(even){
+    background-color: blue;
+}
+```  
+这样就可以了，效果如下：  
+![](../../image/2014-03-28css3-10.jpg)  
+
+
+-----------------------
+###only-child选择器
+only-child选择器顾名思义，就是当元素里面只有一个子元素的时候就可以使用此选择器，方便简洁。
+
+
+------------------------
+###补充: nth-child选择器
+这里补充下nth-child选择器的功能，比如我们有一个这样的场景，我们的ul标签里面有100个li标签，我想每三个标签一组颜色，效果如下：  
+![](../../image/2014-03-28css3-11.jpg)  
+这个时候要怎样实现呢？难道要写100个nth-child？这也太费事了。不用担心有简单的方法，先看代码实现：  
+```
+li:nth-child(3n+1){
+    background-color: yellow;
+}
+li:nth-child(3n+2){
+    background-color: blue;
+}
+li:nth-child(3n+3){
+    background-color: red;
+}
+```  
+这里的n会自动从0增长的，知道匹配完所有的li标签。是不是很nice啊。如果你要4个一组没问题，`4n+1， +2， +3， +4`就OK了。
+
+
+-----------------------------------------------
+灵活使用css中的选择器可以让我们节省很多的时间和精力。
+
+
+</xmp>
+
+<script src="../../javascripts/0.2/strapdown.js"></script>
+</html>
