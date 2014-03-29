@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<link rel="icon" href="../../favicon.png" type="image/ico" >
+<title>CSS3：盒样式</title>
+
+<xmp theme="united" style="display:none;">
+这一节主要记录和盒样式有关的内容，之前我写CSS样式的时候也能处理兼容性，但是一直对盒样式不了解，看过之后才发现其实自己也一直在使用盒样式，只是不知道相关的名词而已。其实很多时候我们会使用某个技术甚至是很了解但是对一些名词却没有耳闻别人在谈及的时候却好像一点都不懂，当看过之后才发现就是这个而已。技术一直在变更不变的是我的学习态度。 
+
+----------------------------------
+在CSS中定义盒类型是通过`display`属性来定义的。大致上来说盒类型分为两种：`block`和`inline`。我在学校的时候学习这两个属性的时候还是叫做块状显示和行内显示。现在摇身一变成了盒样式了，真是牛掰。一般在html中div默认显示是block而span默认是inline。当然这两个都是可以通过display来改变的。我们这里看个例子：  
+```
+css
+div{
+    background-color: yellow;
+    margin-bottom: 10px;
+}
+span{
+    margin-bottom: 10px;
+    background-color: green;
+}
+
+html
+<div>第1个div</div>
+<span>第1个span</span>
+<span>第2个span</span>
+<div>第2个div</div>
+```  
+效果如下：  
+![](../../image/2014-03-29css3-5.jpg)  
+这里可以看出来，div占满整个一行而span却只占自己内容的长度。如果我们给div和span添加宽度和长度会怎样？修改上面的css如下：  
+```
+div{
+    background-color: yellow;
+    margin-bottom: 10px;
+    height: 50px;
+    width: 500px;
+}
+span{
+    margin-bottom: 10px;
+    background-color: green;
+    height: 50px;
+    width: 500px;
+} 
+```  
+效果如下：  
+![](../../image/2014-03-29css3-6.jpg)  
+这里可以看出inline盒类型中height和width属性是不起作用的。只有对block盒类型才起作用。这里我们再次修改上面的css代码如下：  
+```
+div{
+    background-color: yellow;
+    margin-bottom: 10px;
+    height: 50px;
+    width: 500px;
+    display: inline;
+}
+span{
+    margin-bottom: 10px;
+    background-color: green;
+    height: 50px;
+    width: 500px;
+    display: block;
+}
+```  
+再看效果如下：  
+![](../../image/2014-03-29css3-7.jpg)  
+从此可以看出block和inline是可以互换的。所以我们在写css的时候一定要注意这一点。
+
+--------------------------------
+###inline-block类型
+inline-block类型是block类型的一种，但是他显示的时候是以inline类型在显示但是却具有block类型的属性。如： 
+```
+css
+div.div1{
+    background-color: yellow;
+    display: inline;
+}
+div.div2{
+    background-color: green;
+    display: inline-block;
+}
+
+html
+<div class="div1">第1个div</div>
+<div class="div2">第2个div</div>
+```  
+效果如下：  
+![](../../image/2014-03-29css3-8.jpg)  
+这里可以看出两个div的显示方式是一样的都是以inline类型显示，这里我们修改css代码如下：  
+```
+div.div1{
+    background-color: yellow;
+    display: inline;
+    width:500px;
+    height: 50px;
+}
+div.div2{
+    background-color: green;
+    display: inline-block;
+    width:500px;
+    height: 50px;
+}
+```  
+再看下效果如下：  
+![](../../image/2014-03-29css3-9.jpg)   
+这里可以看出`inline-block`类型可以设置高度和宽度。也就是具有block的属性。  
+这里可以看出通过`inline-block`类型我们可以做很多其他方便的事，之前为了让几个div排列在一行上面我们会使用`float`属性，现在就不用了，直接通过使用`inline-block`+设置宽度+设置高度就搞定了。如：  
+```
+css
+div{
+    background-color: green;
+    display: inline-block;
+    width:300px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+html
+<div>第1个div</div>
+<div>第2个div</div>
+<div>第3个div</div>
+<div>第4个div</div>
+<div>第5个div</div>
+<div>第6个div</div>
+```  
+效果如下：  
+![](../../image/2014-03-29css3-10.jpg)  
+而且还可以自适应，如：  
+![](../../image/2014-03-29css3-11.jpg)  
+所以使用`inline-block`是很有用的。
+
+----------------------
+###inline-table类型
+下面我们直接看个例子：  
+```
+css
+无
+
+html
+表格前面
+<table border="1">
+    <tr>
+        <th>编号</th>
+        <th>名称</th>
+        <th>成绩</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>AA</td>
+        <td>89</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>BB</td>
+        <td>96</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>CC</td>
+        <td>47</td>
+    </tr>
+</table>
+表格后面
+```
+效果如图：  
+![](../../image/2014-03-29css3-12.jpg)  
+这里可以看出文字在表格的上面和下面，因为表格是display默认值是block。为了让表格和文字在同一行，我们修改上面的css如下：  
+```
+table{
+    display: inline-table;
+}
+```
+再看效果如下：  
+![](../../image/2014-03-29css3-13.jpg)  
+但是文字是在最上面对齐的，这一点各个浏览器的对齐方式是不一致的。所以一般我们都会自己对齐，修改css如下：
+```
+table{
+    display: inline-table;
+    vertical-align: middle;
+}
+```
+效果如下：  
+![](../../image/2014-03-29css3-14.jpg)  
+这里的`inline-table`也是很有用的。有时候我们处理图片垂直居中的时候就很方便了。比如修改上面的代码如下：  
+```
+css
+img{
+    display: inline-table;
+    vertical-align: middle;
+}
+
+html
+图片前面
+<img src="../images/head.jpg" />
+图片后面
+```
+效果如下：  
+![](../../image/2014-03-29css3-15.jpg)  
+
+既然这里记录了`inline-table`那么就干脆记录下跟表格相关的所有的盒样式。如下：
+```
+-------------------------------------------------------------
+  元素         所属类型               说明 
+-------------------------------------------------------------
+ table        table                 处理表格 
+ table        inline-table          处理表格
+ tr           table-row             处理表格中的一行
+ td           table-cell            处理表格中的单元格
+ th           table-cell            处理表格中的列标题
+ tbody        table-row-group       处理表格中的所有行
+ thead        table-header-group    处理表格中的表头部分
+ tfoot        table-footer-troup    处理表格中的脚注部分
+ col          table-column          处理表格中的一列
+ colgroup     table-column-group    处理表格中的所有列
+ caption      table-caption         处理整个表格中的标题
+
+```
+只要是使用相关的盒类型，即使不是table也可以做到table的效果，比如：
+```
+css
+.table{
+    display: table;
+    border: 1px solid #ccc;
+}
+.thead{
+    display: table-header-group;
+}
+.tr{
+    display: table-row;
+}
+.td{
+    display: table-cell;
+    border: 1px solid #ccc;
+}
+
+html
+<div class="table">
+    <div class="thead">
+        <div class="tr">
+            <div class="td">编号</div>
+            <div class="td">名称</div>
+            <div class="td">成绩</div>
+        </div>
+        <div class="tr">
+            <div class="td">1</div>
+            <div class="td">AA</div>
+            <div class="td">87</div>
+        </div>
+        <div class="tr">
+            <div class="td">2</div>
+            <div class="td">BB</div>
+            <div class="td">64</div>
+        </div>
+        <div class="tr">
+            <div class="td">3</div>
+            <div class="td">CC</div>
+            <div class="td">96</div>
+        </div>
+    </div>
+</div>
+```
+效果如图：  
+![](../../image/2014-03-29css3-16.jpg)
+
+
+</xmp>
+
+<script src="../../javascripts/0.2/strapdown.js"></script>
+</html>
