@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<link rel="icon" href="../../favicon.png" type="image/ico" >
+<title>CSS3：文字样式</title>
+
+<xmp theme="united" style="display:none;">
+这一节主要记录有关文字的样式。比如阴影，换行，字体这些。现在在文字方面的样式使用还是很多的，尤其是字体这一块很多css库都会提供相关的字体文件。  
+
+------------------------
+###text-shadow
+text-shadow属性可以给文字添加阴影，它的使用方法如下：  
+```
+text-shadow: length, length, [length], [color];
+```  
+这里主要说明下四个参数：  
+```
+length：第一个length表示阴影距离文字的横向距离，这个参数是必填的。可以为负值。
+length：第二个length表示阴影距离文字的纵向距离，这个参数也是必填的。可以为负值。
+length：第三个length表示阴影的模糊半径，这个是可选的，不填默认为0。值越大阴影越模糊。
+color：这个参数表示阴影的颜色，也是可选的，默认会使用浏览器颜色，这个不确定的，有些会使用字体颜色。
+```  
+下面看个列子：  
+```
+css
+div{
+	font-size: 60px;
+	font-weight: bold;
+	text-shadow: 35px 35px 5px green;
+}
+
+html
+<div>样子</div>
+```  
+效果如下：  
+![](../../image/2014-03-29css3-1.jpg)  
+阴影使用还是很方便的，当然如果你觉得我想要很多个阴影，一个不够帅，也行，修改上面的css如下：  
+```
+div{
+	font-size: 60px;
+	font-weight: bold;
+	text-shadow: 35px 35px 5px #333, 65px 65px 5px #999, 90px 95px 5px #ddd;
+}
+```  
+效果如下：  
+![](../../image/2014-03-29css3-2.jpg)   
+
+
+------------------------------------
+###自动换行
+在CSS3中自动换行有两个属性，一个是`word-break`, 一个是`word-wrap`。前者是让文本换行，后者是让长单词和URL换行。这里先说前者。  
+
+文本换行在浏览器中会自动处理，但是他们有一个准则，非中文的时候不在单词中间换行，中文的时候不让标点符号在行首。  
+
+使用`word-break`属性可以自己决定换行方式。`word-break`有三个值：  
+```
+normal：使用浏览器默认规则
+keep-all：不能在单词内换行
+break-all：可以在单词内换行
+```  
+下面看个效果：  
+```
+css
+div{
+    width: 200px;
+    height: auto;
+    word-break: break-all;
+}
+
+html
+<div>
+	在CSS3中自动换行有两个属性，一个是`word-break`, 一个是`word-wrap`。前者是让文本换行，后者是让长单词和URL换行。这里先说前者。  
+
+	文本换行在浏览器中会自动处理，但是他们有一个准则，非中文的时候不在单词中间换行，中文的时候不让标点符号在行首。  
+
+	使用`word-break`属性可以自己决定换行方式。`word-break`有三个值：  
+	normal：使用浏览器默认规则
+	keep-all：不能在单词内换行
+	break-all：可以在单词内换行
+	下面看个效果：  
+</div>
+```  
+效果如下：  
+![](../../image/2014-03-29css3-3.jpg)  
+
+
+长单词和URL换行使用`word-wrap`属性，此属性有两个值如下：
+```
+normal：使用浏览器默认处理
+break-word：在长单词或者URL内部换行
+```
+
+
+--------------------
+###使用字体文件
+既然使用字体文件我们当然要去下载字体文件了，现在提供字体文件的网站我们可以去[谷歌字体](http://www.google.com/fonts/)上面下载。选中合适的字体下载下来以供使用。当然也可以直接使用谷歌提供的link链接也行，这里我们使用谷歌提供的link链接：
+```
+<link href='http://fonts.googleapis.com/css?family=Sofadi+One' rel='stylesheet' type='text/css'>
+
+//这里是我打开这个url看到的内容
+@font-face {
+  font-family: 'Sofadi One';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Sofadi One'), local('SofadiOne-Regular'), url(http://themes.googleusercontent.com/static/fonts/sofadione/v2/T28dLve-Ycdi1yHVhvAlyRsxEYwM7FgeyaSgU71cLG0.woff) format('woff');
+}
+```
+使用字体文件需要使用`@font-face`属性。这里说明下`@font-face`里面的几个属性：
+```
+font-family：声明字体类型的名称，这里叫'Sofadi One',那么在使用的时候就使用这个名称
+font-style, font-weight：这两个都是可以重写的，不用管
+src：url()方法标明字体文件在服务器上的位置，local()这个方法标明如果客户端本地有此文件优先使用本地文件。format()表示字体文件的类型，一般主要是'ttf', 'otf', 'woff'等
+```
+引入谷歌提供的link之后就可以直接使用了，一般情况下我们可以直接这样使用比较方便还快而且还省流量，放在自己的服务器上还要下载流量。下面看个例子：  
+```
+css
+<link href='http://fonts.googleapis.com/css?family=Sofadi+One' rel='stylesheet' type='text/css'>
+<style>
+    div{
+        width: 600px;
+        height: auto;
+        font-size: 22px;
+        word-break: break-all;
+        font-family: 'Sofadi One', cursive;
+    }
+</style>
+
+html
+<div>
+    A web with web fonts is more beautiful, readable, accessible and open.
+
+    Google Fonts makes it quick and easy for everyone to use web fonts, including professional designers and developers. We believe that everyone should be able to bring quality typography to their web pages and applications.
+
+    Our goal is to create a directory of web fonts for the world to use. Our API service makes it easy to add Google Fonts to a website in seconds. The service runs on Google's servers which are fast, reliable and tested. Google provides this service free of charge.
+</div>
+```  
+效果如下：  
+![](../../image/2014-03-29css3-4.jpg)  
+当你使用谷歌字体的时候谷歌方面会提供很详细的使用方式。但是谷歌字体对中文的支持可以算是没有支持，真是不好。  
+
+-----------------------------
+下面记录一些CSS之前就已经有的有关文字方面的样式。以供使用的时候方便查询。
+###letter-spacing
+letter-spacing可以设置字符之间的距离，letter-spacing有三个属性值。如下：  
+```
+normal：浏览器默认处理
+length：定义字符间的距离，可以为负值，负值的时候字体会以最左边的为起点挤在一起, 例如：letter-spacing:4px;
+inherit：从父元素继承letter-spacing属性的值
+```
+
+###word-spacing
+word-spacing可以设置单词之间的距离，word-spacing有三个属性值。如下：  
+```
+normal：浏览器默认处理
+length：定义单词间的距离，可以为负值，负值的时候字体会以最左边的为起点挤在一起, 例如：word-spacing:4px;
+inherit：从父元素继承word-spacing属性的值
+```
+
+-----------------------------
+###text-indent
+text-indent可以处理行首缩进，这个在写文章的时候也挺方便。它也有三个值，如：  
+```
+length：指定长度的缩进， 例如：text-indent: 10px;
+%：根据父元素宽度的百分比的缩进，例如：text-indent:2%;
+inherit：该从父元素继承 text-indent 属性的值
+```
+
+------------------
+###text-transform
+text-transform可以控制英文的大小写。这个有很多个属性值，如下：  
+```
+none：浏览器默认处理
+capitalize：每个单词以大写字母开头。
+uppercase：所有单词变大写字母。
+lowercase：所有单词变小写字母。
+inherit：从父元素继承 text-transform 属性的值。
+```
+
+------------------
+###text-overflow
+text-overflow可以控制当文本溢出包含的元素时候的样式。它有三个值，如下：  
+```
+clip：直接截取掉剩下的
+ellipsis：剩下的以省略号显示
+string：使用给定的字符串来代替剩下的
+```  
+
+
+</xmp>
+
+<script src="../../javascripts/0.2/strapdown.js"></script>
+</html>
