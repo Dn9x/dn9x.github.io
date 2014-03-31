@@ -261,7 +261,81 @@ html
 </div>
 ```
 效果如图：  
-![](../../image/2014-03-29css3-16.jpg)
+![](../../image/2014-03-29css3-16.jpg)  
+
+------------------------
+###box-shadow
+如果要对盒子使用阴影可以box-shadow属性，此属性可以给盒子添加阴影。使用方式如：
+```
+box-shadow: length, length, length, color;
+```
+和文字使用阴影的方式一样，参数也一样，效果也一样。这里直接看个效果：
+```
+css
+div{
+    background-color: #ccc;
+    box-shadow: 10px 10px 10px #999;
+    width: 200px;
+    height: 120px;
+}
+
+html
+<div></div>
+```
+效果如下：  
+![](../../image/2014-03-31css3-1.jpg)  
+
+
+------------------------
+###box-sizing
+这个属性很有用，首先说下我之前遇到过的一个问题，我有两个div并排显示，我想每个div都有边框1px,然后两个div可以并排平铺整个页面，宽度自动百分比，如果各给50%的话因为边框会挤到下面，如果给49%，50%的话会有间隙，这个一直让我很头疼，看到这个属性之后一下子我的问题就解决了。  
+写css的时候，width和height可以指定元素的宽度和高度，使用box-sizing可以指定width和height属性分别指定宽度和高度是不是包括元素内部的空白部分和边框部分。这样说可以能有点抽象，看个例子下面：
+```
+css
+div{
+    background-color: #ccc;
+    width: 200px;
+    border: 20px solid #999;
+    margin: 20px auto;
+    text-align: center;
+    padding: 30px;
+}
+
+div#div1{
+    -webkit-box-sizing: content-box;   //此属性各个浏览器还不兼容，所以带前缀
+}
+
+div#div2{
+    -webkit-box-sizing: border-box;
+}
+
+html
+<div id="div1">
+    这里面使用的是content-box。这里面使用的是content-box。这里面使用的是content-box。这里面使用的是content-box。这里面使用的是content-box。这里面使用的是content-box。这里面使用的是content-box。这里面使用的是content-box。
+</div>
+
+<div id="div2">
+    这里面使用的是border-box。这里面使用的是border-box。这里面使用的是border-box。这里面使用的是border-box。
+</div>
+```
+看下效果先：  
+![](../../image/2014-03-31css3-2.jpg)  
+`box-sizing`有两个属性：
+```
+content-box：元素的宽度和高度不包括内容补白区域和边框的部分，默认使用此值
+border-box：元素的宽度和高度包括内容补白和边框部分
+```
+可能上面的图片看的还不明显，我们在谷歌浏览器的调试面板下看，如：  
+####div1的信息  
+![](../../image/2014-03-31css3-3.jpg)  
+
+####div2的信息  
+![](../../image/2014-03-31css3-4.jpg)  
+从谷歌浏览器中我们可以看出两个div的盒子信息很清楚，内容的宽度和长度是不同的。  
+这里如果使用border-box就可以很好的解决我之前遇到的问题。
+
+
+
 
 
 </xmp>
