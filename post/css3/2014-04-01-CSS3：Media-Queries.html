@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<link rel="icon" href="../../favicon.png" type="image/ico" >
+<title>CSS3：Media Queries</title>
+
+<xmp theme="united" style="display:none;">
+Media Queries是在css2中就已经定义了，在CSS3中完善了很多了。Media Queries允许根据不同的设备和尺寸从而选择一种布局方式进行布局。Media Queries的使用方式是：
+```
+@media 设备类型 and (设备属性) and .. {样式代码}
+```
+这里的设备属性可以多个，通过`and`连接。  
+下面我们直接看个例子：
+```
+css
+body{
+    margin: 20px 0;
+}
+
+#container{
+    width: 960px;
+    margin: auto;
+}
+
+#wrapper{
+    width: 740px;
+    float: left;
+}
+
+.div{
+    line-height: 600px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
+    margin: 0 0 20px 0;
+}
+
+#main{
+    width: 520px;
+    float: right;
+    background-color: #69D2E7;
+}
+#left{
+    width: 200px;
+    float: left;
+    background-color: #A7DBD8;
+}
+#right{
+    width: 200px;
+    float: right;
+    background-color: #E0E4CC;
+}
+
+@media (min-width: 1000px) {   /*当屏幕的宽度大于1000的时候使用*/
+    #container{
+        width: 1000px;
+    }
+    #wrapper{
+        width: 780px;
+        float: left;
+    }
+    #main{
+        width: 560px;
+        float: right;
+    }
+    #left{
+        width: 200px;
+        float: left;
+    }
+    #right{
+        width: 200px;
+        float: right;
+    }
+}
+
+@media (min-width: 640px) and (max-width: 999px) {   /*当屏幕的宽度大于640并且小于1000的时候使用*/
+    #container{
+        width: 640px;
+    }
+    #wrapper{
+        width: 640px;
+        float: none;
+    }
+    .div{
+        line-height: 400px;
+    }
+    #main{
+        width: 420px;
+        float: right;
+    }
+    #left{
+        width: 200px;
+        float: left;
+    }
+    #right{
+        width: 100%;
+        float: none;
+        clear: both;
+        line-height: 150px;
+    }
+}
+
+@media (max-width: 639px) {   /*当屏幕的宽度小于640的时候使用*/
+    #container{
+        width: 100%;
+    }
+    #wrapper{
+        width: 100%;
+        float: none;
+    }
+    body{
+        margin: 20px;
+    }
+    .div{
+        line-height: 300px;
+    }
+    #main{
+        width: 100%;
+        float: none;
+    }
+    #left{
+        width: 100%;
+        float: none;
+        line-height: 100px;
+    }
+    #right{
+        width: 100%;
+        float: none;
+        line-height: 100px;
+    }
+}
+
+html
+<div id="container">
+    <div id="wrapper">
+        <div class="div" id="main">
+        Main
+        </div>
+        <div class="div" id="left">
+        left
+        </div>          
+    </div>
+    <div class="div" id="right">
+    right
+    </div>
+</div>
+```
+效果如下：  
+![](../../image/2014-04-01css3-4.jpg)  
+上面这里是全屏的时候显示的效果。  
+
+![](../../image/2014-04-01css3-5.jpg)  
+缩小屏幕到一定程度的效果  
+
+![](../../image/2014-04-01css3-6.jpg)  
+缩小屏幕到比较小的效果
+
+----------------
+刚才上面css中我并没有填写设备的名称。而是直接`@media 设备属性 {样式属性}`。这里不填写设备属性表示兼容所有设备。这里不修改css我们使用谷歌浏览器调试下看下效果：  
+
+###以安卓4.2设备运行  
+![](../../image/2014-04-01css3-7.jpg)
+
+------------------
+###以安卓2.3设备运行  
+![](../../image/2014-04-01css3-8.jpg)
+
+-----------------
+###以Ipad运行  
+![](../../image/2014-04-01css3-9.jpg)  
+这里面有很多种设备，所以有时候我们可以直接使用谷歌浏览器模拟各种移动设备。
+
+------------------------------
+在CSS中总共定义了10中设备类型。他们分别是：
+```
+设备类型名称               设备类型
+all                       所有设备
+screen                    电脑显示器
+print                     打印一类
+handheld                  便携设备
+tv                        电视机
+speech                    语音类设备
+braille                   盲人用点字法触觉回馈设备
+embossed                  盲文打印机
+projection                投影设备
+tty                       终端类
+```
+在谷歌浏览器里面也提供了这些设备的模拟。如：  
+![](../../image/2014-04-01css3-10.jpg)  
+
+css中定义了13中的设备属性，大部分的属性支持`min/max`的前缀方式用于表示大于等于或者小于等于的逻辑。这13中设备属性是：
+```
+名称                          值说明                                                                是否带前缀
+width                        带单位的窗口宽度值,如:640px.                                            允许
+height                       带单位的窗口高度值,如:768px.                                            允许
+device-width                 带单位的设备屏幕分辨率宽度值:1024px.                                     允许
+device-height                带单位的设备屏幕分辨率高度值:768px.                                      允许
+orientation                  当窗口的高度大于宽度时:portrait反之landscape.                           不允许
+aspect-ratio                 窗口纵横比例值,如:16/9.                                                允许
+device-aspect-ratio          屏幕纵横分辨率比例值,如:16/9.                                           允许
+color                        设备使用多少位的颜色值(整数值),如果不是彩色设备值为0.                      允许
+color-index                  色彩表中的色彩数.                                                      允许
+monochrome                   单色帧缓冲器中每像素的字节数.                                            允许
+resolution                   设备的分辨率,比如:3000pdi.                                             允许
+scan                         电视机类设备的扫描方式,逐行扫描:progressive.隔行扫描:interlace.          不允许
+grid                         设备是基于栅格还是位图,栅格:1,位图:0.                                   不允许
+```
+
+在CSS3中也支持对外部样式使用Media Queries。比如：
+```
+@import url(style.css) screen and (min-width: 1000px);
+或者
+<link type="text/css" media="screen and (min-width: 1000px)" href="style.css" />
+```
+
+
+
+
+</xmp>
+
+<script src="../../javascripts/0.2/strapdown.js"></script>
+</html>
