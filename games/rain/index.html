@@ -30,9 +30,11 @@
             border:0; 
         }
 
-        img {
-            width: 100%;
-            height: 100%;
+        .pause{
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
         }
     </style>
     <script src="js/rainyday.min.js"></script>
@@ -40,14 +42,21 @@
         <script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
     <![endif]-->
 </head>
-<body onload="run();">
+<body>
     <div id="background">
         <img id="img" alt="听雨" />
     </div>
-    <audio src="media/yu.m4a" controls="controls" autoplay style="display:none;">
+    <img class="pause" src="imgs/pause_96.png" onClick="playAudio()" />
+    <audio id="audio" src="media/yu.m4a" controls="controls" autoplay style="display:none;">
     </audio>
     <script>
-        function run() {
+        (function(){
+
+            var rd = function(n,m){
+                var c = m-n+1;  
+                return Math.floor(Math.random() * c + n);
+            }
+
             var image = document.getElementById('img');
             image.onload = function() {
                 var engine = new RainyDay({
@@ -56,7 +65,17 @@
                 engine.rain([ [3, 2, 2] ], 100);
             };
             image.crossOrigin = 'anonymous';
-            image.src = 'imgs/photo-1436915947297-3a94186c8133.jpeg';
+            image.src = 'imgs/'+rd(1, 5)+'.jpg';
+        })();
+
+        function playAudio(){
+            var audio = document.getElementById('audio');
+
+            if(audio.paused){
+                audio.play() 
+            }else{
+                audio.pause();  
+            }
         }
     </script>
 </body>
