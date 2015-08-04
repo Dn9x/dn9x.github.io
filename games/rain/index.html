@@ -30,11 +30,12 @@
             border:0; 
         }
 
-        .pause{
+        #pause{
             position: fixed;
             top: 20px;
             right: 20px;
             cursor: pointer;
+            z-index: 99;
         }
     </style>
     <script src="js/rainyday.min.js"></script>
@@ -46,7 +47,7 @@
     <div id="background">
         <img id="img" alt="听雨" />
     </div>
-    <img class="pause" src="imgs/pause_96.png" onClick="playAudio()" />
+    <img id="pause" src="imgs/pause_96.png" onClick="playAudio()" />
     <audio id="audio" src="media/yu.m4a" controls="controls" autoplay style="display:none;">
     </audio>
     <script>
@@ -70,10 +71,13 @@
 
         function playAudio(){
             var audio = document.getElementById('audio');
+            var img = document.getElementById('pause');
 
             if(audio.paused){
-                audio.play() 
+                img.src = "imgs/pause_96.png";;
+                audio.play();
             }else{
+                img.src = "imgs/play_96.png";;
                 audio.pause();  
             }
         }
