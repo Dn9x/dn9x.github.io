@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>听雨</title>
     <link rel="icon" href="../../favicon.png" type="image/ico" >
+    <link rel="author" href="http://dn9x.github.io/">
     <link rel="stylesheet" type="text/css" href="css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="css/default.css">
     <style media="screen">
@@ -30,6 +31,25 @@
             width:100%; 
             border:0; 
         }
+
+        .words{
+            position:fixed; 
+            top:20px; 
+            right:20px; 
+            width: 300px;
+            height: auto;
+            z-index:2; 
+            text-align: center;
+        }
+        .words .word{
+            width: 18px;
+            height: auto;
+            float: right;
+            margin-left: 5px;
+            text-align: center;
+            min-height: 20px;
+            color: #ffffff;
+        }
     </style>
     <script src="js/rainyday.min.js"></script>
     <!--[if IE]>
@@ -39,6 +59,30 @@
 <body onClick="playAudio()">
     <div id="background">
         <img id="img" alt="听雨" />
+    </div>
+    <div class="words" id="words1" style="display:none;">
+        <div class="word">少年听雨歌楼上</div>
+        <div class="word">红烛昏罗帐</div>
+        <div class="word">壮年听雨客舟中</div>
+        <div class="word">江阔云低</div>
+        <div class="word">断雁叫西风</div>
+        <div class="word"></div>
+        <div class="word">而今听雨僧庐下</div>
+        <div class="word">鬓已星星也</div>
+        <div class="word">悲欢离合总无情</div>
+        <div class="word">一任阶前点滴到天明</div>
+        <div class="word"></div>
+        <div class="word">虞美人·听雨</div>
+        <div class="word">蒋捷</div>
+    </div>
+    <div class="words" id="words2" style="display:none;">
+        <div class="word">一步踏尽一树白</div>
+        <div class="word">一桥轻雨一伞开</div>
+        <div class="word">一梦黄粱一壶酒</div>
+        <div class="word">一身白衣一生裁</div>
+        <div class="word"></div>
+        <div class="word">白衣</div>
+        <div class="word">河图</div>
     </div>
     <audio id="audio" src="media/yu.m4a" controls="controls" autoplay style="display:none;">
     </audio>
@@ -50,6 +94,8 @@
                 return Math.floor(Math.random() * c + n);
             }
 
+            var rdm = rd(1, 9);
+
             var image = document.getElementById('img');
             image.onload = function() {
                 var engine = new RainyDay({
@@ -58,7 +104,17 @@
                 engine.rain([ [3, 2, 2] ], 100);
             };
             image.crossOrigin = 'anonymous';
-            image.src = 'imgs/'+rd(1, 5)+'.jpg';
+            image.src = 'imgs/'+rdm+'.jpg';
+
+            var words1 = document.getElementById('words1');
+            var words2 = document.getElementById('words2');
+
+            if(rdm%2==0){
+                words1.style.display = "block";
+            }else{
+                words2.style.display = "block";
+            }
+
         })();
 
         function playAudio(){
@@ -70,6 +126,15 @@
                 audio.pause();  
             }
         }
+    </script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?879e65b0f6537f7f08ac59a907759cf9";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
     </script>
 </body>
 </html>
