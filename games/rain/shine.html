@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+    <link rel="icon" href="../../favicon.png" type="image/ico" >
+    <link rel="author" href="http://dn9x.github.io/">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/default.css">
+    <style media="screen">
+       body {
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #mc{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body onClick="playAudio()">
+    
+    <canvas id = "mc"></canvas>
+    
+    <script>
+        (function(){
+
+            var myCanvas = document.getElementById("mc");
+            var ctx = myCanvas.getContext("2d");
+            ctx.fillRect(25,25,100,10);
+            ctx.fillRect(125,25,10,120);
+            ctx.fillRect(125,145,103,90);
+            // ctx.clearRect(45,45,60,60);
+            // ctx.strokeRect(50,50,50,50);
+            
+
+            // if(rdm%2==0){
+            //     words1.style.display = "block";
+            // }else{
+            //     words2.style.display = "block";
+            // }
+
+
+        })();
+    </script>
+</body>
+</html>
