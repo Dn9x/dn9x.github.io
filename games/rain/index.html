@@ -64,11 +64,16 @@
             width: 120px;
             height: 120px;
         }
+        #shan{
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 99;
+        }
     </style>
-    <script src="js/rainyday.min.js"></script>
-    <!--[if IE]>
-        <script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
-    <![endif]-->
 </head>
 <body onClick="playAudio()">
     <div id="background">
@@ -103,6 +108,11 @@
     </div>
     <audio id="audio" src="media/yu.m4a" controls="controls" autoplay style="display:none;">
     </audio>
+    <div id="shan"></div>
+    <script src="js/rainyday.min.js"></script>
+    <!--[if IE]>
+        <script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+    <![endif]-->
     <script>
         (function(){
 
@@ -126,13 +136,42 @@
             var words1 = document.getElementById('words1');
             var words2 = document.getElementById('words2');
 
-            if(rdm%2==0){
-                words1.style.display = "block";
-            }else{
-                words2.style.display = "block";
-            }
+            // if(rdm%2==0){
+            //     words1.style.display = "block";
+            // }else{
+            //     words2.style.display = "block";
+            // }
+
 
         })();
+
+        var timer = null;
+        var time = 0;
+        function blinkOn() {
+            document.getElementById('shan').style['backgroundColor'] = '#000';
+            document.getElementById('shan').style['opacity'] = '0.3';
+            time++
+            timer = setTimeout("blinkOff()", 50);
+        }
+
+        function blinkOff() {
+            document.getElementById('shan').style['backgroundColor'] = '#FFF';
+            document.getElementById('shan').style['opacity'] = '0.2';
+            if (time < 3){
+                timer = setTimeout("blinkOn()", 50);
+            }else{
+                clearTimeout(timer);
+                document.getElementById('shan').style['opacity'] = '0';
+                time=0;
+                timer = setTimeout(function(){
+                    blinkOn();
+                }, 15000);
+            }
+        }
+
+        setTimeout(function(){
+            blinkOn();
+        }, 5000);
 
         function playAudio(){
             var audio = document.getElementById('audio');
